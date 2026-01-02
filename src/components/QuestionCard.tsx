@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Clock, CheckCircle2 } from 'lucide-react';
+import { Clock, CheckCircle2, ArrowRight } from 'lucide-react';
 import type { Question } from '@/lib/questions';
 import { Card } from './Card';
+import { Button } from './Button';
 
 interface QuestionCardProps {
   question: Question;
@@ -33,6 +34,7 @@ const categoryLabels = {
 /**
  * Question card component with animated options
  * Tracks time spent on each question
+ * User must click "Next" to proceed after selecting an answer
  */
 export function QuestionCard({
   question,
@@ -59,15 +61,17 @@ export function QuestionCard({
     setSelectedOption(null);
   }, [question.id]);
 
+  /** Handle option selection - does not auto-submit */
   const handleOptionClick = (index: number) => {
     if (isSubmitting) return;
     setSelectedOption(index);
-    
-    // Small delay before submitting for visual feedback
-    setTimeout(() => {
-      const timeSpent = Math.floor((Date.now() - startTime) / 1000);
-      onAnswer(index, timeSpent);
-    }, 300);
+  };
+
+  /** Handle next button click - submits the answer */
+  const handleNextClick = () => {
+    if (selectedOption === null || isSubmitting) return;
+    const timeSpent = Math.floor((Date.now() - startTime) / 1000);
+    onAnswer(selectedOption, timeSpent);
   };
 
   const formatTime = (seconds: number) => {
@@ -165,14 +169,20 @@ export function QuestionCard({
             ))}
           </div>
 
-          {/* Footer */}
-          <div className="mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-sm text-slate-500">
-            <span>
+          {/* Footer with Next button */}
+          <div className="mt-8 pt-4 border-t border-white/5 flex items-center justify-between">
+            <span className="text-sm text-slate-500">
               Question {questionNumber} of {totalQuestions}
             </span>
-            <span className="flex items-center gap-1">
-              Click an option to continue
-            </span>
+            <Button
+              onClick={handleNextClick}
+              disabled={selectedOption === null || isSubmitting}
+              variant="primary"
+              size="md"
+              rightIcon={<ArrowRight className="w-4 h-4" />}
+            >
+              {questionNumber === totalQuestions ? 'Finish' : 'Next'}
+            </Button>
           </div>
         </Card>
       </motion.div>
