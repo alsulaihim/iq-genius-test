@@ -62,13 +62,17 @@ export default function TestPage() {
       timeSpent,
     });
 
-    // Check if test is complete
+    // Check if test is complete (this is the last question)
     if (currentQuestionIndex + 1 >= shuffledQuestions.length) {
-      finishTest();
-      setTestComplete(true);
+      // Small delay to ensure state is saved before finishing
       setTimeout(() => {
-        router.push('/payment');
-      }, 1500);
+        finishTest();
+        setTestComplete(true);
+        // Redirect after showing completion screen
+        setTimeout(() => {
+          router.push('/payment');
+        }, 1500);
+      }, 100);
     } else {
       // Move to next question after brief delay
       setTimeout(() => {
