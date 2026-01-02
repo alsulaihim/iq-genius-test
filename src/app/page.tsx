@@ -3,11 +3,10 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Brain, Sparkles, Clock, Trophy, ChevronRight, Shield, Users, Star, Zap } from 'lucide-react';
+import { Brain, Sparkles, Clock, Trophy, Shield, Users, Star, Zap } from 'lucide-react';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from '@/components/Button';
 import { Card } from '@/components/Card';
-import { GenderSelect } from '@/components/GenderSelect';
 import { useTestStore, Gender } from '@/lib/store';
 
 /**
@@ -18,23 +17,15 @@ export default function HomePage() {
   const router = useRouter();
   const { startTest, resetTest } = useTestStore();
   const [selectedGender, setSelectedGender] = useState<Gender | null>(null);
-  const [showGenderSelect, setShowGenderSelect] = useState(false);
 
   const handleStartTest = () => {
-    if (!selectedGender) {
-      setShowGenderSelect(true);
-      return;
-    }
+    if (!selectedGender) return;
     
     // Reset any previous test and start fresh
     resetTest();
     const sessionId = uuidv4();
     startTest(selectedGender, sessionId);
     router.push('/test');
-  };
-
-  const handleGenderSelect = (gender: Gender) => {
-    setSelectedGender(gender);
   };
 
   return (
@@ -132,44 +123,73 @@ export default function HomePage() {
             </div>
           </motion.div>
 
-          {/* CTA Section */}
+          {/* CTA Section - Gender Selection & Start */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="max-w-md mx-auto"
+            className="max-w-lg mx-auto"
           >
-            {showGenderSelect ? (
-              <Card variant="bordered" className="p-6">
-                <GenderSelect
-                  selected={selectedGender}
-                  onSelect={handleGenderSelect}
-                />
-                <Button
-                  onClick={handleStartTest}
-                  variant="primary"
-                  size="lg"
-                  fullWidth
-                  pulse
-                  disabled={!selectedGender}
-                  className="mt-6"
-                  rightIcon={<ChevronRight className="w-5 h-5" />}
+            {/* Inline Gender Selection */}
+            <div className="mb-6">
+              <p className="text-sm text-slate-400 mb-4">Select your gender to begin:</p>
+              <div className="grid grid-cols-2 gap-4">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setSelectedGender('male')}
+                  className={`
+                    p-4 rounded-2xl border-2 transition-all duration-200
+                    flex flex-col items-center gap-2
+                    ${selectedGender === 'male'
+                      ? 'bg-primary-500/20 border-primary-500 text-white'
+                      : 'bg-surface-light border-white/10 text-slate-400 hover:border-white/20'
+                    }
+                  `}
                 >
-                  Begin IQ Test
-                </Button>
-              </Card>
-            ) : (
-              <Button
-                onClick={() => setShowGenderSelect(true)}
-                variant="gold"
-                size="lg"
-                fullWidth
-                pulse
-                rightIcon={<Zap className="w-5 h-5" />}
-              >
-                Start Your Free IQ Test
-              </Button>
-            )}
+                  <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="10" cy="14" r="5" />
+                    <path d="M19 5l-5.4 5.4" />
+                    <path d="M15 5h4v4" />
+                  </svg>
+                  <span className="font-medium text-white">Male</span>
+                </motion.button>
+                
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setSelectedGender('female')}
+                  className={`
+                    p-4 rounded-2xl border-2 transition-all duration-200
+                    flex flex-col items-center gap-2
+                    ${selectedGender === 'female'
+                      ? 'bg-primary-500/20 border-primary-500 text-white'
+                      : 'bg-surface-light border-white/10 text-slate-400 hover:border-white/20'
+                    }
+                  `}
+                >
+                  <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="8" r="5" />
+                    <path d="M12 13v8" />
+                    <path d="M9 18h6" />
+                  </svg>
+                  <span className="font-medium text-white">Female</span>
+                </motion.button>
+              </div>
+            </div>
+
+            {/* Start Button */}
+            <Button
+              onClick={handleStartTest}
+              variant="gold"
+              size="lg"
+              fullWidth
+              pulse={!!selectedGender}
+              disabled={!selectedGender}
+              rightIcon={<Zap className="w-5 h-5" />}
+            >
+              {selectedGender ? 'Start IQ Test' : 'Select Gender to Start'}
+            </Button>
             
             <p className="text-xs text-slate-500 mt-4">
               Takes ~10 minutes • Results: $9.99
