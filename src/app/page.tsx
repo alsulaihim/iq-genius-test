@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Brain, Sparkles, Clock, Trophy, Shield, Users, Star, Zap } from 'lucide-react';
@@ -13,10 +13,32 @@ import { useTestStore, Gender } from '@/lib/store';
  * Landing page for IQ Genius Test
  * Features animated hero section, benefits, and test start flow
  */
+/** Particle data for background animation */
+interface Particle {
+  id: number;
+  x: number;
+  y: number;
+  scale: number;
+  duration: number;
+}
+
 export default function HomePage() {
   const router = useRouter();
   const { startTest, resetTest } = useTestStore();
   const [selectedGender, setSelectedGender] = useState<Gender | null>(null);
+  const [particles, setParticles] = useState<Particle[]>([]);
+
+  // Generate particles only on client to avoid hydration mismatch
+  useEffect(() => {
+    const generated = [...Array(20)].map((_, i) => ({
+      id: i,
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      scale: Math.random() * 0.5 + 0.5,
+      duration: Math.random() * 10 + 10,
+    }));
+    setParticles(generated);
+  }, []);
 
   const handleStartTest = () => {
     if (!selectedGender) return;
@@ -30,23 +52,23 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen">
-      {/* Animated background particles */}
+      {/* Animated background particles - rendered client-side only */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
+        {particles.map((particle) => (
           <motion.div
-            key={i}
+            key={particle.id}
             className="absolute w-2 h-2 bg-primary-500/20 rounded-full"
             initial={{
-              x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
-              y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800),
-              scale: Math.random() * 0.5 + 0.5,
+              x: particle.x,
+              y: particle.y,
+              scale: particle.scale,
             }}
             animate={{
-              y: [null, -100, null],
+              y: [particle.y, particle.y - 100, particle.y],
               opacity: [0.2, 0.5, 0.2],
             }}
             transition={{
-              duration: Math.random() * 10 + 10,
+              duration: particle.duration,
               repeat: Infinity,
               ease: 'easeInOut',
             }}
