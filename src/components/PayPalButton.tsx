@@ -37,8 +37,6 @@ export function PayPalButton({ amount, onSuccess, onError }: PayPalButtonProps) 
         currency: 'USD',
         intent: 'capture',
         components: 'buttons',
-        // Disable card button to show only PayPal (cards work through PayPal checkout)
-        disableFunding: 'card,credit',
       }}
     >
       <div className="space-y-6">
@@ -75,7 +73,7 @@ export function PayPalButton({ amount, onSuccess, onError }: PayPalButtonProps) 
             <PayPalButtons
             style={{
               layout: 'vertical',
-              shape: 'pill',
+              shape: 'rect',
               color: 'black',
               label: 'pay',
               height: 55,
@@ -148,7 +146,7 @@ export function PayPalButton({ amount, onSuccess, onError }: PayPalButtonProps) 
           className="flex items-center justify-center gap-2 text-slate-400 text-xs px-4 text-center"
         >
           <CreditCard className="w-4 h-4 text-primary-400/60 flex-shrink-0" />
-          <span>Credit/debit cards accepted – no PayPal account required</span>
+          <span>Pay with PayPal or directly with your card</span>
         </motion.div>
 
         {/* Trust badges */}

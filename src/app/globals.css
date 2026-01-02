@@ -142,7 +142,7 @@ body {
 /* PayPal buttons wrapper - dark theme integration */
 .paypal-buttons-wrapper {
   background: #111118;
-  border-radius: 20px;
+  border-radius: 12px;
   padding: 4px;
   overflow: hidden;
 }
@@ -157,9 +157,9 @@ body {
   background: #111118 !important;
 }
 
-/* Smooth iframe edges */
+/* Square corner iframe */
 .paypal-buttons-wrapper iframe {
-  border-radius: 28px !important;
+  border-radius: 8px !important;
 }
 
 /* Mobile optimizations */
