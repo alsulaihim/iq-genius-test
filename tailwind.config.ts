@@ -9,31 +9,31 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Deep cosmic theme
+        // Light professional theme
         primary: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9',
-          600: '#0284c7',
-          700: '#0369a1',
-          800: '#075985',
-          900: '#0c4a6e',
-          950: '#082f49',
+          50: '#eff6ff',
+          100: '#dbeafe',
+          200: '#bfdbfe',
+          300: '#93c5fd',
+          400: '#60a5fa',
+          500: '#3b82f6',
+          600: '#2563eb',
+          700: '#1d4ed8',
+          800: '#1e40af',
+          900: '#1e3a8a',
+          950: '#172554',
         },
         accent: {
-          gold: '#fbbf24',
-          purple: '#a855f7',
+          gold: '#f59e0b',
+          purple: '#8b5cf6',
           pink: '#ec4899',
-          cyan: '#22d3ee',
+          cyan: '#06b6d4',
         },
         surface: {
-          dark: '#0a0a0f',
-          DEFAULT: '#111118',
-          light: '#1a1a24',
-          lighter: '#252532',
+          dark: '#f8fafc',
+          DEFAULT: '#ffffff',
+          light: '#f1f5f9',
+          lighter: '#e2e8f0',
         },
       },
       fontFamily: {

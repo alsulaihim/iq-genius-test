@@ -63,7 +63,7 @@ export function IQGauge({ score, animated = true }: IQGaugeProps) {
         <path
           d="M 20 100 A 80 80 0 0 1 180 100"
           fill="none"
-          stroke="#1a1a24"
+          stroke="#e2e8f0"
           strokeWidth="12"
           strokeLinecap="round"
         />
@@ -119,13 +119,13 @@ export function IQGauge({ score, animated = true }: IQGaugeProps) {
                 y1={y1}
                 x2={x2}
                 y2={y2}
-                stroke="#374151"
+                stroke="#94a3b8"
                 strokeWidth="2"
               />
               <text
                 x={100 + 55 * Math.cos((tickRotation * Math.PI) / 180)}
                 y={100 + 55 * Math.sin((tickRotation * Math.PI) / 180)}
-                fill="#6b7280"
+                fill="#64748b"
                 fontSize="8"
                 textAnchor="middle"
                 dominantBaseline="middle"
@@ -155,7 +155,7 @@ export function IQGauge({ score, animated = true }: IQGaugeProps) {
           cx="100"
           cy="100"
           r="12"
-          fill="#252532"
+          fill="#f8fafc"
           stroke={getScoreColor()}
           strokeWidth="3"
         />
@@ -171,7 +171,7 @@ export function IQGauge({ score, animated = true }: IQGaugeProps) {
         <div className="text-6xl font-display font-bold" style={{ color: getScoreColor() }}>
           {displayScore}
         </div>
-        <div className="text-slate-400 text-sm mt-1">Your IQ Score</div>
+        <div className="text-slate-600 text-sm mt-1">Your IQ Score</div>
       </motion.div>
     </div>
   );

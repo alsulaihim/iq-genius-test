@@ -10,10 +10,10 @@ interface CardProps extends HTMLMotionProps<'div'> {
 }
 
 const variantStyles = {
-  default: 'bg-surface-light',
-  glass: 'bg-glass',
-  bordered: 'bg-surface-light border border-white/10',
-  glow: 'bg-surface-light glow-primary',
+  default: 'bg-white shadow-sm',
+  glass: 'bg-white/80 backdrop-blur-xl border border-slate-200',
+  bordered: 'bg-white border border-slate-200 shadow-sm',
+  glow: 'bg-white glow-primary shadow-sm',
 };
 
 const paddingStyles = {
@@ -87,7 +87,7 @@ export function CardTitle({
   className?: string;
 }) {
   return (
-    <h3 className={`text-xl font-display font-semibold text-white ${className}`}>
+    <h3 className={`text-xl font-display font-semibold text-slate-900 ${className}`}>
       {children}
     </h3>
   );
@@ -104,7 +104,7 @@ export function CardDescription({
   className?: string;
 }) {
   return (
-    <p className={`text-sm text-slate-400 mt-1 ${className}`}>
+    <p className={`text-sm text-slate-600 mt-1 ${className}`}>
       {children}
     </p>
   );
@@ -138,7 +138,7 @@ export function CardFooter({
   className?: string;
 }) {
   return (
-    <div className={`mt-4 pt-4 border-t border-white/5 ${className}`}>
+    <div className={`mt-4 pt-4 border-t border-slate-200 ${className}`}>
       {children}
     </div>
   );

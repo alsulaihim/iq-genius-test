@@ -33,17 +33,17 @@ export function ProgressBar({
     <div className="w-full">
       {showLabel && (
         <div className="flex justify-between items-center mb-2">
-          <span className="text-sm text-slate-400 font-medium">
+          <span className="text-sm text-slate-600 font-medium">
             Question {current} of {total}
           </span>
-          <span className="text-sm font-mono text-primary-400">
+          <span className="text-sm font-mono text-primary-600">
             {percentage}%
           </span>
         </div>
       )}
       
       <div className={`
-        w-full bg-surface-lighter rounded-full overflow-hidden
+        w-full bg-slate-200 rounded-full overflow-hidden
         ${sizeStyles[size]}
       `}>
         <motion.div
@@ -97,7 +97,7 @@ export function CircularProgress({
           fill="none"
           stroke="currentColor"
           strokeWidth={strokeWidth}
-          className="text-surface-lighter"
+          className="text-slate-200"
         />
         
         {/* Progress circle */}
@@ -118,8 +118,8 @@ export function CircularProgress({
         {/* Gradient definition */}
         <defs>
           <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#0ea5e9" />
-            <stop offset="50%" stopColor="#a855f7" />
+            <stop offset="0%" stopColor="#3b82f6" />
+            <stop offset="50%" stopColor="#8b5cf6" />
             <stop offset="100%" stopColor="#ec4899" />
           </linearGradient>
         </defs>
@@ -127,11 +127,11 @@ export function CircularProgress({
       
       {/* Center content */}
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-2xl font-display font-bold text-white">
+        <span className="text-2xl font-display font-bold text-slate-900">
           {percentage}%
         </span>
         {label && (
-          <span className="text-xs text-slate-400 mt-0.5">
+          <span className="text-xs text-slate-500 mt-0.5">
             {label}
           </span>
         )}
@@ -139,4 +139,3 @@ export function CircularProgress({
     </div>
   );
 }
-

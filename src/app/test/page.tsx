@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Brain, AlertCircle } from 'lucide-react';
 import { useTestStore } from '@/lib/store';
-import { questions, getShuffledQuestions, Question } from '@/lib/questions';
+import { getShuffledQuestions, Question } from '@/lib/questions';
 import { QuestionCard } from '@/components/QuestionCard';
 import { ProgressBar } from '@/components/ProgressBar';
 import { Button } from '@/components/Button';
@@ -97,8 +97,8 @@ export default function TestPage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <Brain className="w-16 h-16 text-primary-400 mx-auto mb-4 animate-pulse" />
-          <p className="text-slate-400">Loading test...</p>
+          <Brain className="w-16 h-16 text-primary-500 mx-auto mb-4 animate-pulse" />
+          <p className="text-slate-600">Loading test...</p>
         </div>
       </div>
     );
@@ -122,10 +122,10 @@ export default function TestPage() {
             <Brain className="w-12 h-12 text-white" />
           </motion.div>
           
-          <h1 className="text-3xl font-display font-bold text-white mb-4">
+          <h1 className="text-3xl font-display font-bold text-slate-900 mb-4">
             Test Complete!
           </h1>
-          <p className="text-slate-400 mb-6">
+          <p className="text-slate-600 mb-6">
             You answered all {shuffledQuestions.length} questions. 
             Redirecting to unlock your results...
           </p>
@@ -145,19 +145,19 @@ export default function TestPage() {
   return (
     <div className="min-h-screen pb-8">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-surface/80 backdrop-blur-xl border-b border-white/5">
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <Brain className="w-6 h-6 text-primary-400" />
-              <span className="font-display font-bold text-white">IQ Test</span>
+              <Brain className="w-6 h-6 text-primary-500" />
+              <span className="font-display font-bold text-slate-900">IQ Test</span>
             </div>
             
             <Button
               variant="ghost"
               size="sm"
               onClick={handleQuit}
-              className="text-slate-400 hover:text-red-400"
+              className="text-slate-500 hover:text-red-500"
             >
               Quit Test
             </Button>
@@ -194,9 +194,9 @@ export default function TestPage() {
         >
           <Card variant="glass" padding="sm">
             <div className="flex items-start gap-3 text-sm">
-              <AlertCircle className="w-5 h-5 text-primary-400 flex-shrink-0 mt-0.5" />
-              <div className="text-slate-400">
-                <strong className="text-slate-300">Tip:</strong> Trust your first instinct. 
+              <AlertCircle className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />
+              <div className="text-slate-600">
+                <strong className="text-slate-700">Tip:</strong> Trust your first instinct. 
                 Most people score higher when they don&apos;t overthink their answers.
               </div>
             </div>
@@ -206,4 +206,3 @@ export default function TestPage() {
     </div>
   );
 }
-

@@ -9,13 +9,13 @@
   --font-clash: 'Clash Display', system-ui, sans-serif;
   --font-satoshi: 'Satoshi', system-ui, sans-serif;
   
-  /* Color variables */
-  --color-primary: #0ea5e9;
-  --color-accent-gold: #fbbf24;
-  --color-accent-purple: #a855f7;
+  /* Light theme color variables */
+  --color-primary: #3b82f6;
+  --color-accent-gold: #f59e0b;
+  --color-accent-purple: #8b5cf6;
   --color-accent-pink: #ec4899;
-  --color-surface: #111118;
-  --color-surface-light: #1a1a24;
+  --color-surface: #ffffff;
+  --color-surface-light: #f1f5f9;
 }
 
 * {
@@ -29,63 +29,63 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   font-family: var(--font-satoshi);
-  background: var(--color-surface);
-  color: #f1f5f9;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  color: #1e293b;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - light theme */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a24;
+  background: #f1f5f9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #0ea5e9, #a855f7);
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #38bdf8, #c084fc);
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
 }
 
 /* Selection styling */
 ::selection {
-  background: rgba(14, 165, 233, 0.3);
-  color: #fff;
+  background: rgba(59, 130, 246, 0.2);
+  color: #1e293b;
 }
 
 /* Utility classes */
 @layer utilities {
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-400 via-accent-purple to-accent-pink;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-600 via-accent-purple to-accent-pink;
   }
   
   .text-gradient-gold {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-accent-gold via-orange-400 to-accent-gold;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-accent-gold via-orange-500 to-accent-gold;
   }
   
   .bg-glass {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+    @apply bg-white/80 backdrop-blur-xl border border-slate-200;
   }
   
   .bg-glass-dark {
-    @apply bg-black/20 backdrop-blur-xl border border-white/5;
+    @apply bg-slate-50/90 backdrop-blur-xl border border-slate-200;
   }
   
   .glow-primary {
-    box-shadow: 0 0 40px rgba(14, 165, 233, 0.3);
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.2);
   }
   
   .glow-purple {
-    box-shadow: 0 0 40px rgba(168, 85, 247, 0.3);
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.2);
   }
   
   .glow-gold {
-    box-shadow: 0 0 40px rgba(251, 191, 36, 0.3);
+    box-shadow: 0 0 40px rgba(245, 158, 11, 0.2);
   }
 }
 
@@ -96,10 +96,10 @@ body {
     opacity: 0;
   }
   10% {
-    opacity: 1;
+    opacity: 0.5;
   }
   90% {
-    opacity: 1;
+    opacity: 0.5;
   }
   100% {
     transform: translateY(-100vh) translateX(20px);
@@ -111,12 +111,12 @@ body {
   animation: particle-float 15s infinite;
 }
 
-/* Brain pattern background */
+/* Brain pattern background - light version */
 .bg-neural {
   background-image: 
-    radial-gradient(circle at 20% 50%, rgba(14, 165, 233, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 40% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+    radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(236, 72, 153, 0.08) 0%, transparent 50%);
 }
 
 /* Question card hover effect */
@@ -126,12 +126,12 @@ body {
 
 .question-option:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 40px rgba(14, 165, 233, 0.2);
+  box-shadow: 0 10px 40px rgba(59, 130, 246, 0.15);
 }
 
 /* Progress bar glow */
 .progress-glow {
-  box-shadow: 0 0 20px rgba(14, 165, 233, 0.5);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
 }
 
 /* PayPal button container styling */
@@ -139,25 +139,24 @@ body {
   @apply w-full max-w-md mx-auto;
 }
 
-/* PayPal buttons wrapper - dark container for both buttons */
+/* PayPal buttons wrapper - light theme (blends naturally) */
 .paypal-buttons-wrapper {
-  background: #111118;
+  background: #ffffff;
   border-radius: 12px;
   padding: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 /* Style the inner PayPal container */
 .paypal-buttons-wrapper > div {
   min-width: 100% !important;
-  background: #111118 !important;
+  background: #ffffff !important;
 }
 
 /* Target PayPal's inner containers */
 .paypal-buttons-wrapper > div > div {
-  background: #111118 !important;
+  background: #ffffff !important;
 }
 
 /* Make iframe corners rounded */
@@ -189,10 +188,10 @@ body {
 
 @keyframes pulse-cta {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.4);
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
   }
   50% {
-    box-shadow: 0 0 0 15px rgba(14, 165, 233, 0);
+    box-shadow: 0 0 0 15px rgba(59, 130, 246, 0);
   }
 }
 
@@ -203,10 +202,10 @@ body {
 
 @keyframes brain-pulse {
   0%, 100% {
-    filter: drop-shadow(0 0 10px rgba(14, 165, 233, 0.5));
+    filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.4));
   }
   50% {
-    filter: drop-shadow(0 0 25px rgba(168, 85, 247, 0.8));
+    filter: drop-shadow(0 0 25px rgba(139, 92, 246, 0.6));
   }
 }
 
@@ -215,9 +214,9 @@ body {
   @apply tabular-nums;
 }
 
-/* Loading skeleton */
+/* Loading skeleton - light theme */
 .skeleton {
-  @apply bg-gradient-to-r from-surface-light via-surface-lighter to-surface-light;
+  @apply bg-gradient-to-r from-slate-200 via-slate-100 to-slate-200;
   background-size: 200% 100%;
   animation: skeleton-loading 1.5s infinite;
 }

@@ -94,29 +94,29 @@ export function QuestionCard({
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
               <span className={`
-                px-3 py-1 rounded-full text-xs font-medium
+                px-3 py-1 rounded-full text-xs font-medium text-white
                 bg-gradient-to-r ${categoryColors[question.category]}
               `}>
                 {categoryLabels[question.category]}
               </span>
               <span className={`
                 px-2 py-0.5 rounded text-xs font-medium
-                ${question.difficulty === 'easy' ? 'bg-green-500/20 text-green-400' : ''}
-                ${question.difficulty === 'medium' ? 'bg-yellow-500/20 text-yellow-400' : ''}
-                ${question.difficulty === 'hard' ? 'bg-red-500/20 text-red-400' : ''}
+                ${question.difficulty === 'easy' ? 'bg-green-100 text-green-700' : ''}
+                ${question.difficulty === 'medium' ? 'bg-yellow-100 text-yellow-700' : ''}
+                ${question.difficulty === 'hard' ? 'bg-red-100 text-red-700' : ''}
               `}>
                 {question.difficulty.charAt(0).toUpperCase() + question.difficulty.slice(1)}
               </span>
             </div>
             
-            <div className="flex items-center gap-2 text-slate-400">
+            <div className="flex items-center gap-2 text-slate-500">
               <Clock className="w-4 h-4" />
               <span className="font-mono text-sm">{formatTime(elapsedTime)}</span>
             </div>
           </div>
 
           {/* Question */}
-          <h2 className="text-xl md:text-2xl font-display font-semibold text-white mb-8 leading-relaxed">
+          <h2 className="text-xl md:text-2xl font-display font-semibold text-slate-900 mb-8 leading-relaxed">
             {question.question}
           </h2>
 
@@ -134,8 +134,8 @@ export function QuestionCard({
                   flex items-center gap-4
                   border transition-all duration-200
                   ${selectedOption === index
-                    ? 'bg-primary-500/20 border-primary-500 text-white'
-                    : 'bg-surface-lighter/50 border-white/5 text-slate-300 hover:border-white/20 hover:bg-surface-lighter'
+                    ? 'bg-primary-50 border-primary-500 text-slate-900'
+                    : 'bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-100'
                   }
                   ${isSubmitting ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}
                 `}
@@ -146,7 +146,7 @@ export function QuestionCard({
                   font-display font-semibold text-lg flex-shrink-0
                   ${selectedOption === index
                     ? 'bg-primary-500 text-white'
-                    : 'bg-surface-light text-slate-400'
+                    : 'bg-white border border-slate-200 text-slate-500'
                   }
                 `}>
                   {String.fromCharCode(65 + index)}
@@ -162,7 +162,7 @@ export function QuestionCard({
                     animate={{ scale: 1 }}
                     className="flex-shrink-0"
                   >
-                    <CheckCircle2 className="w-6 h-6 text-primary-400" />
+                    <CheckCircle2 className="w-6 h-6 text-primary-500" />
                   </motion.span>
                 )}
               </motion.button>
@@ -170,7 +170,7 @@ export function QuestionCard({
           </div>
 
           {/* Footer with Next button */}
-          <div className="mt-8 pt-4 border-t border-white/5 flex items-center justify-between">
+          <div className="mt-8 pt-4 border-t border-slate-200 flex items-center justify-between">
             <span className="text-sm text-slate-500">
               Question {questionNumber} of {totalQuestions}
             </span>
@@ -189,4 +189,3 @@ export function QuestionCard({
     </AnimatePresence>
   );
 }
-

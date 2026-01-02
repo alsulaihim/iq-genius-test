@@ -23,24 +23,24 @@ interface ButtonProps extends Omit<HTMLMotionProps<'button'>, 'children'> {
 const variantStyles: Record<ButtonVariant, string> = {
   primary: `
     bg-gradient-to-r from-primary-500 to-primary-600 
-    hover:from-primary-400 hover:to-primary-500
+    hover:from-primary-600 hover:to-primary-700
     text-white shadow-lg shadow-primary-500/25
     border border-primary-400/20
   `,
   secondary: `
-    bg-surface-light hover:bg-surface-lighter
-    text-slate-100 border border-white/10
-    hover:border-white/20
+    bg-white hover:bg-slate-50
+    text-slate-700 border border-slate-200
+    hover:border-slate-300
   `,
   ghost: `
-    bg-transparent hover:bg-white/5
-    text-slate-300 hover:text-white
-    border border-transparent hover:border-white/10
+    bg-transparent hover:bg-slate-100
+    text-slate-600 hover:text-slate-900
+    border border-transparent hover:border-slate-200
   `,
   gold: `
     bg-gradient-to-r from-amber-500 to-orange-500
-    hover:from-amber-400 hover:to-orange-400
-    text-black font-semibold shadow-lg shadow-amber-500/25
+    hover:from-amber-600 hover:to-orange-600
+    text-white font-semibold shadow-lg shadow-amber-500/25
     border border-amber-400/20
   `,
 };
@@ -76,7 +76,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       inline-flex items-center justify-center font-medium
       transition-all duration-200 ease-out
       disabled:opacity-50 disabled:cursor-not-allowed
-      focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:ring-offset-2 focus:ring-offset-surface
+      focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:ring-offset-2 focus:ring-offset-white
     `;
 
     return (

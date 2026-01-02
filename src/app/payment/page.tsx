@@ -56,8 +56,8 @@ export default function PaymentPage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <Brain className="w-16 h-16 text-primary-400 mx-auto mb-4 animate-pulse" />
-          <p className="text-slate-400">Loading...</p>
+          <Brain className="w-16 h-16 text-primary-500 mx-auto mb-4 animate-pulse" />
+          <p className="text-slate-600">Loading...</p>
         </div>
       </div>
     );
@@ -81,10 +81,10 @@ export default function PaymentPage() {
             <CheckCircle className="w-12 h-12 text-white" />
           </motion.div>
           
-          <h1 className="text-3xl font-display font-bold text-white mb-4">
+          <h1 className="text-3xl font-display font-bold text-slate-900 mb-4">
             Payment Successful!
           </h1>
-          <p className="text-slate-400 mb-6">
+          <p className="text-slate-600 mb-6">
             Unlocking your personalized IQ results...
           </p>
           
@@ -104,12 +104,12 @@ export default function PaymentPage() {
   return (
     <div className="min-h-screen pb-16">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-surface/80 backdrop-blur-xl border-b border-white/5">
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Brain className="w-6 h-6 text-primary-400" />
-              <span className="font-display font-bold text-white">IQ Genius</span>
+              <Brain className="w-6 h-6 text-primary-500" />
+              <span className="font-display font-bold text-slate-900">IQ Genius</span>
             </div>
             
             <Button
@@ -132,40 +132,40 @@ export default function PaymentPage() {
         >
           <Card variant="bordered" className="mb-8 overflow-hidden">
             {/* Blurred preview */}
-            <div className="relative p-6 text-center">
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-surface/50 to-surface z-10" />
+            <div className="relative p-6 text-center bg-gradient-to-b from-slate-50 to-white">
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/50 to-white z-10" />
               <div className="blur-lg select-none">
-                <div className="text-7xl font-display font-bold text-primary-400 mb-2">
+                <div className="text-7xl font-display font-bold text-primary-500 mb-2">
                   ???
                 </div>
-                <p className="text-xl text-white">Your IQ Score</p>
+                <p className="text-xl text-slate-700">Your IQ Score</p>
               </div>
               
               {/* Lock overlay */}
               <div className="absolute inset-0 flex items-center justify-center z-20">
                 <div className="text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-surface-light border border-white/10 flex items-center justify-center">
-                    <Lock className="w-8 h-8 text-primary-400" />
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center shadow-lg">
+                    <Lock className="w-8 h-8 text-primary-500" />
                   </div>
-                  <p className="text-white font-medium">Unlock Your Results</p>
+                  <p className="text-slate-900 font-medium">Unlock Your Results</p>
                 </div>
               </div>
             </div>
 
             {/* Test summary */}
-            <div className="px-6 pb-6 pt-4 border-t border-white/5 bg-surface-light/50">
+            <div className="px-6 pb-6 pt-4 border-t border-slate-200 bg-slate-50">
               <div className="grid grid-cols-2 gap-4 text-center">
                 <div>
-                  <p className="text-2xl font-display font-bold text-white">
+                  <p className="text-2xl font-display font-bold text-slate-900">
                     {answeredQuestions}
                   </p>
-                  <p className="text-xs text-slate-400">Questions Answered</p>
+                  <p className="text-xs text-slate-500">Questions Answered</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-display font-bold text-white">
+                  <p className="text-2xl font-display font-bold text-slate-900">
                     {testDuration} min
                   </p>
-                  <p className="text-xs text-slate-400">Test Duration</p>
+                  <p className="text-xs text-slate-500">Test Duration</p>
                 </div>
               </div>
             </div>
@@ -179,7 +179,7 @@ export default function PaymentPage() {
           transition={{ delay: 0.1 }}
           className="mb-8"
         >
-          <h2 className="text-lg font-display font-semibold text-white mb-4 text-center">
+          <h2 className="text-lg font-display font-semibold text-slate-900 mb-4 text-center">
             What You&apos;ll Get:
           </h2>
           
@@ -193,8 +193,8 @@ export default function PaymentPage() {
               'Brain improvement tips',
             ].map((item, index) => (
               <li key={index} className="flex items-start gap-3">
-                <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                <span className="text-slate-300 text-sm">{item}</span>
+                <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                <span className="text-slate-700 text-sm">{item}</span>
               </li>
             ))}
           </ul>
@@ -207,7 +207,7 @@ export default function PaymentPage() {
           transition={{ delay: 0.2 }}
         >
           <Card variant="bordered" padding="lg" className="overflow-visible">
-            <h2 className="text-xl font-display font-semibold text-white mb-6 text-center">
+            <h2 className="text-xl font-display font-semibold text-slate-900 mb-6 text-center">
               Unlock Your IQ Results
             </h2>
 
@@ -216,12 +216,12 @@ export default function PaymentPage() {
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl flex items-start gap-3"
+                className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3"
               >
-                <AlertTriangle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                <AlertTriangle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-red-400 font-medium">Payment Failed</p>
-                  <p className="text-red-300/70 text-sm">{errorMessage}</p>
+                  <p className="text-red-700 font-medium">Payment Failed</p>
+                  <p className="text-red-600/70 text-sm">{errorMessage}</p>
                 </div>
               </motion.div>
             )}
@@ -244,7 +244,7 @@ export default function PaymentPage() {
         >
           <p>
             Questions? Contact us at{' '}
-            <a href="mailto:support@iqgenius.com" className="text-primary-400 hover:underline">
+            <a href="mailto:support@iqgenius.com" className="text-primary-600 hover:underline">
               support@iqgenius.com
             </a>
           </p>
@@ -253,4 +253,3 @@ export default function PaymentPage() {
     </div>
   );
 }
-
