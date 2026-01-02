@@ -124,7 +124,7 @@ export default function PaymentPage() {
         </div>
       </header>
 
-      <main className="max-w-lg mx-auto px-4 py-8">
+      <main className="max-w-xl mx-auto px-4 py-8">
         {/* Locked results preview */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -206,7 +206,7 @@ export default function PaymentPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <Card variant="bordered" padding="lg">
+          <Card variant="bordered" padding="lg" className="overflow-visible">
             <h2 className="text-xl font-display font-semibold text-white mb-6 text-center">
               Unlock Your IQ Results
             </h2>

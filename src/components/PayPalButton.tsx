@@ -68,8 +68,8 @@ export function PayPalButton({ amount, onSuccess, onError }: PayPalButtonProps) 
             </div>
           )}
 
-          {/* Dark container to blend PayPal iframe */}
-          <div className="paypal-buttons-wrapper bg-surface-light rounded-2xl p-4 border border-white/5">
+          {/* Styled PayPal container */}
+          <div className="paypal-buttons-wrapper">
             <PayPalButtons
             style={{
               layout: 'vertical',

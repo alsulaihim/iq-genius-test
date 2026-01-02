@@ -139,27 +139,26 @@ body {
   @apply w-full max-w-md mx-auto;
 }
 
-/* PayPal buttons wrapper - dark theme integration */
+/* PayPal buttons wrapper - embrace the white as a styled container */
 .paypal-buttons-wrapper {
-  background: #111118;
-  border-radius: 12px;
-  padding: 4px;
-  overflow: hidden;
+  background: linear-gradient(135deg, #1e1e2e 0%, #2a2a3e 100%);
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 4px 24px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-/* Hide the white container background between buttons */
-.paypal-buttons-wrapper > div > div {
-  background: #111118 !important;
+/* Style the inner PayPal container */
+.paypal-buttons-wrapper > div {
+  min-width: 100% !important;
 }
 
-/* Target the PayPal button row container */
-.paypal-buttons-wrapper [class*="paypal-button"] {
-  background: #111118 !important;
-}
-
-/* Square corner iframe */
+/* Make iframe corners rounded */
 .paypal-buttons-wrapper iframe {
-  border-radius: 8px !important;
+  border-radius: 10px !important;
+  min-width: 100% !important;
 }
 
 /* Mobile optimizations */
