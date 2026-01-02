@@ -141,24 +141,25 @@ body {
 
 /* PayPal buttons wrapper - dark theme integration */
 .paypal-buttons-wrapper {
-  /* Contain the PayPal iframe styling */
-  isolation: isolate;
-}
-
-/* Target PayPal iframe containers */
-.paypal-buttons-wrapper > div {
-  background: transparent !important;
-}
-
-/* Style the zoid-component-frame container */
-.paypal-buttons-wrapper [class*="paypal"] {
-  background: transparent !important;
-}
-
-/* Override any white backgrounds in PayPal containers */
-.paypal-buttons-wrapper iframe {
-  border-radius: 50px !important;
+  background: #111118;
+  border-radius: 20px;
+  padding: 4px;
   overflow: hidden;
+}
+
+/* Hide the white container background between buttons */
+.paypal-buttons-wrapper > div > div {
+  background: #111118 !important;
+}
+
+/* Target the PayPal button row container */
+.paypal-buttons-wrapper [class*="paypal-button"] {
+  background: #111118 !important;
+}
+
+/* Smooth iframe edges */
+.paypal-buttons-wrapper iframe {
+  border-radius: 28px !important;
 }
 
 /* Mobile optimizations */
