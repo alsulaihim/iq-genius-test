@@ -37,7 +37,7 @@ export function PayPalButton({ amount, onSuccess, onError }: PayPalButtonProps) 
         currency: 'USD',
         intent: 'capture',
         components: 'buttons',
-        disableFunding: 'card,credit,paylater',
+        disableFunding: 'credit,paylater',
       }}
     >
       <div className="space-y-6">
