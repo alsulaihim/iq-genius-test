@@ -139,6 +139,28 @@ body {
   @apply w-full max-w-md mx-auto;
 }
 
+/* PayPal buttons wrapper - dark theme integration */
+.paypal-buttons-wrapper {
+  /* Contain the PayPal iframe styling */
+  isolation: isolate;
+}
+
+/* Target PayPal iframe containers */
+.paypal-buttons-wrapper > div {
+  background: transparent !important;
+}
+
+/* Style the zoid-component-frame container */
+.paypal-buttons-wrapper [class*="paypal"] {
+  background: transparent !important;
+}
+
+/* Override any white backgrounds in PayPal containers */
+.paypal-buttons-wrapper iframe {
+  border-radius: 50px !important;
+  overflow: hidden;
+}
+
 /* Mobile optimizations */
 @media (max-width: 640px) {
   html {

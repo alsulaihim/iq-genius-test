@@ -57,10 +57,10 @@ export function PayPalButton({ amount, onSuccess, onError }: PayPalButtonProps) 
           <span>Secure payment via PayPal</span>
         </div>
 
-        {/* PayPal Buttons */}
+        {/* PayPal Buttons - wrapped in dark container */}
         <div className="relative">
           {isProcessing && (
-            <div className="absolute inset-0 bg-surface/80 backdrop-blur-sm z-10 flex items-center justify-center rounded-xl">
+            <div className="absolute inset-0 bg-surface/80 backdrop-blur-sm z-10 flex items-center justify-center rounded-2xl">
               <div className="flex items-center gap-3 text-primary-400">
                 <Loader2 className="w-6 h-6 animate-spin" />
                 <span>Processing payment...</span>
@@ -68,7 +68,9 @@ export function PayPalButton({ amount, onSuccess, onError }: PayPalButtonProps) 
             </div>
           )}
 
-          <PayPalButtons
+          {/* Dark container to blend PayPal iframe */}
+          <div className="paypal-buttons-wrapper bg-surface-light rounded-2xl p-4 border border-white/5">
+            <PayPalButtons
             style={{
               layout: 'vertical',
               shape: 'pill',
@@ -133,6 +135,7 @@ export function PayPalButton({ amount, onSuccess, onError }: PayPalButtonProps) 
               setIsProcessing(false);
             }}
           />
+          </div>
         </div>
 
         {/* Alternative payment info */}
