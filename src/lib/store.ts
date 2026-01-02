@@ -4,7 +4,7 @@ import { persist } from 'zustand/middleware';
 /**
  * Gender options for the test
  */
-export type Gender = 'male' | 'female' | 'other';
+export type Gender = 'male' | 'female';
 
 /**
  * Answer record for each question

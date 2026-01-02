@@ -131,20 +131,6 @@ export const genderStatistics: Record<Gender, GenderStats> = {
     historicalContext: 'Modern IQ tests have been redesigned to eliminate historical gender biases and provide equitable assessment.',
     encouragement: 'Your cognitive profile demonstrates excellent potential. Females who score in this range often excel in communication, leadership, healthcare, and creative fields.',
   },
-  other: {
-    meanIQ: 100,
-    standardDeviation: 15,
-    strengthAreas: [
-      'Diverse cognitive patterns',
-      'Creative problem-solving',
-      'Adaptable thinking',
-      'Unique perspectives',
-    ],
-    topPerformancePercentage: 2.2,
-    notableInsight: 'Cognitive abilities are highly individual and not determined by gender identity. Your unique perspective is a strength.',
-    historicalContext: 'Modern psychological research emphasizes individual differences over group averages.',
-    encouragement: 'Your unique cognitive profile represents diverse thinking patterns. This often correlates with creativity, adaptability, and innovative problem-solving.',
-  },
 };
 
 /**
@@ -198,13 +184,13 @@ export function getPersonalizedInsights(iqScore: number, gender: Gender): {
   // Generate comparison text
   let comparisonText = '';
   if (percentile >= 98) {
-    comparisonText = `You scored higher than ${percentile}% of ${gender === 'other' ? 'people' : gender + 's'} your age. This places you in the gifted range!`;
+    comparisonText = `You scored higher than ${percentile}% of ${gender}s your age. This places you in the gifted range!`;
   } else if (percentile >= 75) {
-    comparisonText = `You scored higher than ${percentile}% of ${gender === 'other' ? 'people' : gender + 's'} your age. You have above-average cognitive abilities.`;
+    comparisonText = `You scored higher than ${percentile}% of ${gender}s your age. You have above-average cognitive abilities.`;
   } else if (percentile >= 50) {
-    comparisonText = `You scored higher than ${percentile}% of ${gender === 'other' ? 'people' : gender + 's'} your age. You have solid cognitive abilities.`;
+    comparisonText = `You scored higher than ${percentile}% of ${gender}s your age. You have solid cognitive abilities.`;
   } else {
-    comparisonText = `You scored in the ${percentile}th percentile among ${gender === 'other' ? 'people' : gender + 's'} your age. There's always room for growth!`;
+    comparisonText = `You scored in the ${percentile}th percentile among ${gender}s your age. There's always room for growth!`;
   }
   
   // Career suggestions based on score

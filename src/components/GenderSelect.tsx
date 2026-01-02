@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { User, Users } from 'lucide-react';
 import type { Gender } from '@/lib/store';
 
 interface GenderSelectProps {
@@ -34,12 +33,6 @@ const genderOptions: { value: Gender; label: string; icon: React.ReactNode; desc
     ),
     description: 'Compare with female statistics',
   },
-  {
-    value: 'other',
-    label: 'Other / Prefer not to say',
-    icon: <Users className="w-8 h-8" />,
-    description: 'Compare with general statistics',
-  },
 ];
 
 /**
@@ -57,7 +50,7 @@ export function GenderSelect({ selected, onSelect }: GenderSelectProps) {
         </p>
       </div>
       
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid gap-4 grid-cols-2">
         {genderOptions.map((option) => (
           <motion.button
             key={option.value}
