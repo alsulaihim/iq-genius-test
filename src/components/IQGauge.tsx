@@ -150,17 +150,17 @@ export function IQGauge({ score, animated = true }: IQGaugeProps) {
           style={{ transformOrigin: '100px 100px' }}
         >
           <polygon
-            points="100,30 95,100 105,100"
+            points="100,28 96,94 104,94"
             fill={getScoreColor()}
             filter="url(#glow)"
           />
         </motion.g>
         
-        {/* Center circle */}
+        {/* Center circle - drawn after needle so it covers the base */}
         <circle
           cx="100"
           cy="100"
-          r="12"
+          r="14"
           fill="#f8fafc"
           stroke={getScoreColor()}
           strokeWidth="3"
