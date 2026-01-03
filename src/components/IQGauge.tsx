@@ -40,11 +40,14 @@ export function IQGauge({ score, animated = true }: IQGaugeProps) {
     return () => clearInterval(timer);
   }, [score, animated]);
 
-  // Calculate rotation based on score (70-145 range mapped to 0-180 degrees)
+  // Calculate rotation based on score (70-145 range mapped to left-to-right arc)
   const minScore = 70;
   const maxScore = 145;
   const normalizedScore = Math.max(minScore, Math.min(maxScore, score));
-  const rotation = ((normalizedScore - minScore) / (maxScore - minScore)) * 180;
+  // Map score to angle: 70 = 180° (left), 145 = 0° (right)
+  const mathAngle = 180 - ((normalizedScore - minScore) / (maxScore - minScore)) * 180;
+  // Convert to CSS rotation (needle points UP at 0deg, LEFT at -90deg, RIGHT at 90deg)
+  const needleRotation = 90 - mathAngle;
 
   // Determine color based on score
   const getScoreColor = () => {
@@ -98,19 +101,22 @@ export function IQGauge({ score, animated = true }: IQGaugeProps) {
           strokeDasharray="251.33" // Circumference of semicircle
           initial={{ strokeDashoffset: 251.33 }}
           animate={{ 
-            strokeDashoffset: animated ? 251.33 - (rotation / 180) * 251.33 : 251.33 - (rotation / 180) * 251.33 
+            strokeDashoffset: 251.33 - ((180 - mathAngle) / 180) * 251.33
           }}
           transition={{ duration: 2, ease: 'easeOut' }}
           filter="url(#glow)"
         />
         
         {/* Tick marks */}
-        {[70, 85, 100, 115, 130, 145].map((tick, index) => {
-          const tickRotation = ((tick - minScore) / (maxScore - minScore)) * 180 - 90;
-          const x1 = 100 + 65 * Math.cos((tickRotation * Math.PI) / 180);
-          const y1 = 100 + 65 * Math.sin((tickRotation * Math.PI) / 180);
-          const x2 = 100 + 75 * Math.cos((tickRotation * Math.PI) / 180);
-          const y2 = 100 + 75 * Math.sin((tickRotation * Math.PI) / 180);
+        {[70, 85, 100, 115, 130, 145].map((tick) => {
+          // Map tick to angle: 70 = 180° (left), 145 = 0° (right)
+          const tickAngle = 180 - ((tick - minScore) / (maxScore - minScore)) * 180;
+          const angleRad = (tickAngle * Math.PI) / 180;
+          // Position tick marks along the arc (subtract Y for SVG coordinate system)
+          const x1 = 100 + 65 * Math.cos(angleRad);
+          const y1 = 100 - 65 * Math.sin(angleRad);
+          const x2 = 100 + 75 * Math.cos(angleRad);
+          const y2 = 100 - 75 * Math.sin(angleRad);
           
           return (
             <g key={tick}>
@@ -123,8 +129,8 @@ export function IQGauge({ score, animated = true }: IQGaugeProps) {
                 strokeWidth="2"
               />
               <text
-                x={100 + 55 * Math.cos((tickRotation * Math.PI) / 180)}
-                y={100 + 55 * Math.sin((tickRotation * Math.PI) / 180)}
+                x={100 + 52 * Math.cos(angleRad)}
+                y={100 - 52 * Math.sin(angleRad)}
                 fill="#64748b"
                 fontSize="8"
                 textAnchor="middle"
@@ -139,7 +145,7 @@ export function IQGauge({ score, animated = true }: IQGaugeProps) {
         {/* Needle */}
         <motion.g
           initial={{ rotate: -90 }}
-          animate={{ rotate: rotation - 90 }}
+          animate={{ rotate: needleRotation }}
           transition={{ duration: 2, ease: 'easeOut' }}
           style={{ transformOrigin: '100px 100px' }}
         >
