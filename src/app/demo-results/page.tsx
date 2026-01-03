@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { IQGauge } from '@/components/IQGauge';
-import { getIQClassification, getPercentileFromIQ } from '@/lib/statistics';
+import { getIQClassification, calculatePercentile } from '@/lib/statistics';
 
 /**
  * Demo Results Page - For previewing gauge at different IQ scores
@@ -12,7 +12,7 @@ import { getIQClassification, getPercentileFromIQ } from '@/lib/statistics';
 export default function DemoResultsPage() {
   const [score, setScore] = useState(100);
   const classification = getIQClassification(score);
-  const percentile = getPercentileFromIQ(score);
+  const percentile = calculatePercentile(score, 'male');
 
   const presetScores = [70, 85, 100, 115, 130, 145];
 
