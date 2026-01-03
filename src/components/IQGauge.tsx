@@ -174,6 +174,16 @@ export function IQGauge({ score, animated = true }: IQGaugeProps) {
           );
         })}
         
+        {/* Center circle background - drawn first */}
+        <circle
+          cx={centerX}
+          cy={centerY}
+          r="16"
+          fill="white"
+          stroke="#e2e8f0"
+          strokeWidth="2"
+        />
+        
         {/* Needle - calculated mathematically, base is exactly at center */}
         <polygon
           points={`${tipX},${tipY} ${baseLeftX},${baseLeftY} ${baseRightX},${baseRightY}`}
@@ -181,22 +191,20 @@ export function IQGauge({ score, animated = true }: IQGaugeProps) {
           filter="url(#needleShadow)"
         />
         
-        {/* Center circle - covers the needle base perfectly */}
+        {/* Center colored circle - sits on top of needle base */}
         <circle
           cx={centerX}
           cy={centerY}
-          r="14"
-          fill="white"
-          stroke={getScoreColor()}
-          strokeWidth="3"
+          r="10"
+          fill={getScoreColor()}
         />
         
-        {/* Small inner circle for depth */}
+        {/* White inner dot for depth effect */}
         <circle
           cx={centerX}
           cy={centerY}
-          r="5"
-          fill={getScoreColor()}
+          r="4"
+          fill="white"
         />
       </svg>
       
