@@ -36,7 +36,8 @@ export function PayPalButton({ amount, onSuccess, onError }: PayPalButtonProps) 
         clientId,
         currency: 'USD',
         intent: 'capture',
-        components: 'buttons',
+        components: 'buttons,funding-eligibility',
+        enableFunding: 'card',
         disableFunding: 'credit,paylater',
       }}
     >
