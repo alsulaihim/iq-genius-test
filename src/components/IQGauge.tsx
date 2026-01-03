@@ -149,8 +149,9 @@ export function IQGauge({ score, animated = true }: IQGaugeProps) {
           transition={{ duration: 2, ease: 'easeOut' }}
           style={{ transformOrigin: '100px 100px' }}
         >
+          {/* Needle triangle - base centered at (100,100), tip pointing up */}
           <polygon
-            points="100,28 96,94 104,94"
+            points="100,30 95,100 105,100"
             fill={getScoreColor()}
             filter="url(#glow)"
           />
@@ -160,7 +161,7 @@ export function IQGauge({ score, animated = true }: IQGaugeProps) {
         <circle
           cx="100"
           cy="100"
-          r="14"
+          r="12"
           fill="#f8fafc"
           stroke={getScoreColor()}
           strokeWidth="3"
