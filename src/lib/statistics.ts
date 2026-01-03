@@ -278,3 +278,86 @@ export const worldStats = {
   },
 };
 
+/**
+ * Famous people with their reported/estimated IQ scores
+ * Note: Many of these are estimates based on achievements, not actual test results
+ */
+export interface FamousPerson {
+  name: string;
+  iq: number;
+  profession: string;
+  achievement: string;
+  image?: string;
+}
+
+export const famousPeople: FamousPerson[] = [
+  // 145+ Exceptionally Gifted
+  { name: 'Albert Einstein', iq: 160, profession: 'Physicist', achievement: 'Theory of Relativity' },
+  { name: 'Stephen Hawking', iq: 160, profession: 'Physicist', achievement: 'Black hole theory' },
+  { name: 'Elon Musk', iq: 155, profession: 'Entrepreneur', achievement: 'Tesla, SpaceX founder' },
+  { name: 'Bill Gates', iq: 160, profession: 'Entrepreneur', achievement: 'Microsoft founder' },
+  { name: 'Marie Curie', iq: 180, profession: 'Scientist', achievement: 'Nobel Prize in Physics & Chemistry' },
+  
+  // 130-144 Gifted
+  { name: 'Barack Obama', iq: 140, profession: 'Politician', achievement: '44th US President' },
+  { name: 'Mark Zuckerberg', iq: 137, profession: 'Entrepreneur', achievement: 'Facebook/Meta founder' },
+  { name: 'Hillary Clinton', iq: 140, profession: 'Politician', achievement: 'Secretary of State' },
+  { name: 'Madonna', iq: 140, profession: 'Musician', achievement: 'Queen of Pop' },
+  { name: 'Shakira', iq: 140, profession: 'Musician', achievement: 'Grammy Award winner' },
+  
+  // 120-129 Superior
+  { name: 'Arnold Schwarzenegger', iq: 125, profession: 'Actor/Politician', achievement: 'Governor of California' },
+  { name: 'Emma Watson', iq: 126, profession: 'Actress', achievement: 'Harry Potter, UN Ambassador' },
+  { name: 'John F. Kennedy', iq: 127, profession: 'Politician', achievement: '35th US President' },
+  { name: 'Steve Jobs', iq: 127, profession: 'Entrepreneur', achievement: 'Apple founder' },
+  { name: 'Jodie Foster', iq: 127, profession: 'Actress', achievement: '2x Oscar winner' },
+  
+  // 110-119 High Average
+  { name: 'George Washington', iq: 118, profession: 'Military/Politician', achievement: '1st US President' },
+  { name: 'Nicole Kidman', iq: 115, profession: 'Actress', achievement: 'Oscar winner' },
+  { name: 'Dolph Lundgren', iq: 115, profession: 'Actor', achievement: 'Chemical engineering degree' },
+  { name: 'Reese Witherspoon', iq: 116, profession: 'Actress', achievement: 'Oscar winner' },
+  
+  // 90-109 Average
+  { name: 'Muhammad Ali', iq: 78, profession: 'Boxer', achievement: 'Greatest of All Time' },
+  { name: 'Abraham Lincoln', iq: 128, profession: 'Politician', achievement: '16th US President' },
+  { name: 'Andy Warhol', iq: 86, profession: 'Artist', achievement: 'Pop Art pioneer' },
+];
+
+/**
+ * Get famous people with similar IQ scores
+ * Returns people within ±10 points of the given score
+ */
+export function getFamousPeopleByIQ(iqScore: number): FamousPerson[] {
+  const tolerance = 12; // IQ range tolerance
+  
+  const matches = famousPeople.filter(
+    person => Math.abs(person.iq - iqScore) <= tolerance
+  );
+  
+  // Sort by closest IQ match
+  matches.sort((a, b) => Math.abs(a.iq - iqScore) - Math.abs(b.iq - iqScore));
+  
+  // Return top 4 matches
+  return matches.slice(0, 4);
+}
+
+/**
+ * Get famous people by IQ classification
+ */
+export function getFamousPeopleByClassification(iqScore: number): FamousPerson[] {
+  if (iqScore >= 145) {
+    return famousPeople.filter(p => p.iq >= 145).slice(0, 4);
+  } else if (iqScore >= 130) {
+    return famousPeople.filter(p => p.iq >= 130 && p.iq < 145).slice(0, 4);
+  } else if (iqScore >= 120) {
+    return famousPeople.filter(p => p.iq >= 120 && p.iq < 130).slice(0, 4);
+  } else if (iqScore >= 110) {
+    return famousPeople.filter(p => p.iq >= 110 && p.iq < 120).slice(0, 4);
+  } else if (iqScore >= 90) {
+    return famousPeople.filter(p => p.iq >= 90 && p.iq < 110).slice(0, 4);
+  } else {
+    return famousPeople.filter(p => p.iq < 90).slice(0, 4);
+  }
+}
+

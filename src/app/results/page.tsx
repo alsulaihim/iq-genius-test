@@ -15,8 +15,9 @@ import {
   RotateCcw
 } from 'lucide-react';
 import { useTestStore } from '@/lib/store';
-import { getPersonalizedInsights, worldStats } from '@/lib/statistics';
+import { getPersonalizedInsights, worldStats, getFamousPeopleByIQ } from '@/lib/statistics';
 import { IQGauge } from '@/components/IQGauge';
+import { Star, Award } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/Card';
 import { Button } from '@/components/Button';
 
@@ -49,6 +50,7 @@ export default function ResultsPage() {
 
   const TOTAL_QUESTIONS = 20; // Fixed number of questions in the test
   const insights = getPersonalizedInsights(currentSession.iqScore, currentSession.gender);
+  const famousPeople = getFamousPeopleByIQ(currentSession.iqScore);
   const correctAnswers = currentSession.answers.filter(a => a.isCorrect).length;
   const totalQuestions = TOTAL_QUESTIONS;
   const accuracy = Math.round((correctAnswers / totalQuestions) * 100);
@@ -181,6 +183,59 @@ export default function ResultsPage() {
               <div className="text-xs text-slate-500">{stat.label}</div>
             </Card>
           ))}
+        </motion.section>
+
+        {/* Famous People with Similar IQ */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.35 }}
+          className="mb-8"
+        >
+          <Card variant="bordered" padding="lg">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Star className="w-5 h-5 text-accent-gold" />
+                Famous People with Similar IQ
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-slate-600 mb-4">
+                You share similar cognitive abilities with these notable figures:
+              </p>
+              {famousPeople.length > 0 ? (
+                <div className="grid sm:grid-cols-2 gap-4">
+                  {famousPeople.map((person, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.4 + index * 0.1 }}
+                      className="flex items-center gap-4 p-4 bg-gradient-to-r from-slate-50 to-white rounded-xl border border-slate-100"
+                    >
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center flex-shrink-0">
+                        <Award className="w-6 h-6 text-primary-600" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          <span className="font-semibold text-slate-900 truncate">{person.name}</span>
+                          <span className="text-xs px-2 py-0.5 bg-primary-100 text-primary-700 rounded-full flex-shrink-0">
+                            IQ {person.iq}
+                          </span>
+                        </div>
+                        <p className="text-sm text-slate-500">{person.profession}</p>
+                        <p className="text-xs text-slate-400 truncate">{person.achievement}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-slate-500 text-center py-4">
+                  No famous people data available for this IQ range.
+                </p>
+              )}
+            </CardContent>
+          </Card>
         </motion.section>
 
         {/* Gender Comparison */}
