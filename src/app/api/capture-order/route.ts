@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 /**
  * PayPal API configuration
  */
-const PAYPAL_API_BASE = process.env.PAYPAL_MODE === 'production'
+const PAYPAL_API_BASE = process.env.PAYPAL_MODE === 'live'
   ? 'https://api-m.paypal.com'
   : 'https://api-m.sandbox.paypal.com';
 
