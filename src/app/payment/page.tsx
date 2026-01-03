@@ -96,7 +96,8 @@ export default function PaymentPage() {
     );
   }
 
-  const answeredQuestions = currentSession.answers.length;
+  const TOTAL_QUESTIONS = 20; // Fixed number of questions in the test
+  const answeredQuestions = TOTAL_QUESTIONS;
   const testDuration = currentSession.endTime 
     ? Math.round((currentSession.endTime - currentSession.startTime) / 1000 / 60)
     : 0;

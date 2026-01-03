@@ -47,9 +47,10 @@ export default function ResultsPage() {
     );
   }
 
+  const TOTAL_QUESTIONS = 20; // Fixed number of questions in the test
   const insights = getPersonalizedInsights(currentSession.iqScore, currentSession.gender);
   const correctAnswers = currentSession.answers.filter(a => a.isCorrect).length;
-  const totalQuestions = currentSession.answers.length;
+  const totalQuestions = TOTAL_QUESTIONS;
   const accuracy = Math.round((correctAnswers / totalQuestions) * 100);
 
   const handleRetakeTest = () => {

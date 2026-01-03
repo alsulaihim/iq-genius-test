@@ -64,7 +64,7 @@ export default function TestPage() {
 
     // Check if test is complete (this is the last question)
     if (currentQuestionIndex + 1 >= shuffledQuestions.length) {
-      // Small delay to ensure state is saved before finishing
+      // Longer delay to ensure Zustand persists the last answer
       setTimeout(() => {
         finishTest();
         setTestComplete(true);
@@ -72,7 +72,7 @@ export default function TestPage() {
         setTimeout(() => {
           router.push('/payment');
         }, 1500);
-      }, 100);
+      }, 300);
     } else {
       // Move to next question after brief delay
       setTimeout(() => {
