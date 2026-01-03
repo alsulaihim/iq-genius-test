@@ -184,13 +184,13 @@ export function getPersonalizedInsights(iqScore: number, gender: Gender): {
   // Generate comparison text
   let comparisonText = '';
   if (percentile >= 98) {
-    comparisonText = `You scored higher than ${percentile}% of ${gender}s your age. This places you in the gifted range!`;
+    comparisonText = `You scored higher than ${percentile}% of ${gender}s globally. This places you in the gifted range!`;
   } else if (percentile >= 75) {
-    comparisonText = `You scored higher than ${percentile}% of ${gender}s your age. You have above-average cognitive abilities.`;
+    comparisonText = `You scored higher than ${percentile}% of ${gender}s globally. You have above-average cognitive abilities.`;
   } else if (percentile >= 50) {
-    comparisonText = `You scored higher than ${percentile}% of ${gender}s your age. You have solid cognitive abilities.`;
+    comparisonText = `You scored higher than ${percentile}% of ${gender}s globally. You have solid cognitive abilities.`;
   } else {
-    comparisonText = `You scored in the ${percentile}th percentile among ${gender}s your age. There's always room for growth!`;
+    comparisonText = `You scored in the ${percentile}th percentile among ${gender}s globally. There's always room for growth!`;
   }
   
   // Career suggestions based on score
