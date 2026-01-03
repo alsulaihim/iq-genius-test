@@ -68,12 +68,12 @@ export function IQGauge({ score, animated = true }: IQGaugeProps) {
   const tipY = centerY - needleLength * Math.cos(angleRad);
   
   // Calculate needle base corners (perpendicular to needle direction)
-  const baseWidth = 8;
-  const perpAngle = angleRad + Math.PI / 2;
-  const baseLeftX = centerX + (baseWidth / 2) * Math.cos(perpAngle);
-  const baseLeftY = centerY + (baseWidth / 2) * Math.sin(perpAngle);
-  const baseRightX = centerX - (baseWidth / 2) * Math.cos(perpAngle);
-  const baseRightY = centerY - (baseWidth / 2) * Math.sin(perpAngle);
+  // Perpendicular direction is (cos(θ), sin(θ)) when needle points (sin(θ), -cos(θ))
+  const baseWidth = 10;
+  const baseLeftX = centerX + (baseWidth / 2) * Math.cos(angleRad);
+  const baseLeftY = centerY + (baseWidth / 2) * Math.sin(angleRad);
+  const baseRightX = centerX - (baseWidth / 2) * Math.cos(angleRad);
+  const baseRightY = centerY - (baseWidth / 2) * Math.sin(angleRad);
 
   // Determine color based on score
   const getScoreColor = () => {
