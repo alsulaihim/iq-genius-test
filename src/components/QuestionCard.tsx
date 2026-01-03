@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, CheckCircle2, ArrowRight } from 'lucide-react';
 import type { Question } from '@/lib/questions';
 import { Card } from './Card';
@@ -81,15 +80,8 @@ export function QuestionCard({
   };
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={question.id}
-        initial={{ opacity: 0, x: 50 }}
-        animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: -50 }}
-        transition={{ duration: 0.3 }}
-      >
-        <Card variant="bordered" padding="lg" className="max-w-2xl mx-auto">
+    <div key={question.id}>
+      <Card variant="bordered" padding="lg" className="max-w-2xl mx-auto">
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
@@ -123,12 +115,10 @@ export function QuestionCard({
           {/* Options */}
           <div className="space-y-3">
             {question.options.map((option, index) => (
-              <motion.button
+              <button
                 key={index}
                 onClick={() => handleOptionClick(index)}
                 disabled={isSubmitting}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
                 className={`
                   question-option w-full p-4 rounded-xl text-left
                   flex items-center gap-4
@@ -157,15 +147,11 @@ export function QuestionCard({
                 
                 {/* Selected indicator */}
                 {selectedOption === index && (
-                  <motion.span
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    className="flex-shrink-0"
-                  >
+                  <span className="flex-shrink-0">
                     <CheckCircle2 className="w-6 h-6 text-primary-500" />
-                  </motion.span>
+                  </span>
                 )}
-              </motion.button>
+              </button>
             ))}
           </div>
 
@@ -185,7 +171,6 @@ export function QuestionCard({
             </Button>
           </div>
         </Card>
-      </motion.div>
-    </AnimatePresence>
+    </div>
   );
 }

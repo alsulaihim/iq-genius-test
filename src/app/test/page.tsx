@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Brain, AlertCircle } from 'lucide-react';
 import { useTestStore } from '@/lib/store';
 import { getShuffledQuestions, Question } from '@/lib/questions';
@@ -174,16 +174,14 @@ export default function TestPage() {
       {/* Main content */}
       <main className="max-w-4xl mx-auto px-4 py-8">
         {/* Question card */}
-        <AnimatePresence mode="wait">
-          <QuestionCard
-            key={currentQuestion.id}
-            question={currentQuestion}
-            questionNumber={progress}
-            totalQuestions={totalQuestions}
-            onAnswer={handleAnswer}
-            isSubmitting={isSubmitting}
-          />
-        </AnimatePresence>
+        <QuestionCard
+          key={currentQuestion.id}
+          question={currentQuestion}
+          questionNumber={progress}
+          totalQuestions={totalQuestions}
+          onAnswer={handleAnswer}
+          isSubmitting={isSubmitting}
+        />
 
         {/* Tips */}
         <motion.div
