@@ -11,43 +11,69 @@ interface IQGaugeProps {
 /**
  * Animated IQ score gauge visualization
  * Shows score on a semicircular dial with gradient colors
+ * Uses mathematical calculation for needle position (not CSS transforms)
  */
 export function IQGauge({ score, animated = true }: IQGaugeProps) {
   const [displayScore, setDisplayScore] = useState(animated ? 0 : score);
+  const [animatedAngle, setAnimatedAngle] = useState(-90); // Start at far left
   
-  // Animate score count up
+  // Constants for the gauge
+  const centerX = 100;
+  const centerY = 100;
+  const needleLength = 60; // Length from center to tip
+  const minScore = 70;
+  const maxScore = 145;
+  
+  // Calculate final angle based on score
+  // Score 70 = -90° (pointing left), Score 145 = 90° (pointing right)
+  const normalizedScore = Math.max(minScore, Math.min(maxScore, score));
+  const finalAngle = -90 + ((normalizedScore - minScore) / (maxScore - minScore)) * 180;
+
+  // Animate score count up and needle rotation
   useEffect(() => {
     if (!animated) {
       setDisplayScore(score);
+      setAnimatedAngle(finalAngle);
       return;
     }
 
-    const duration = 2000; // 2 seconds
+    const duration = 2000;
     const steps = 60;
-    const increment = score / steps;
-    let current = 0;
+    const scoreIncrement = score / steps;
+    const angleIncrement = (finalAngle - (-90)) / steps;
+    let currentScore = 0;
+    let currentAngle = -90;
 
     const timer = setInterval(() => {
-      current += increment;
-      if (current >= score) {
+      currentScore += scoreIncrement;
+      currentAngle += angleIncrement;
+      
+      if (currentScore >= score) {
         setDisplayScore(score);
+        setAnimatedAngle(finalAngle);
         clearInterval(timer);
       } else {
-        setDisplayScore(Math.round(current));
+        setDisplayScore(Math.round(currentScore));
+        setAnimatedAngle(currentAngle);
       }
     }, duration / steps);
 
     return () => clearInterval(timer);
-  }, [score, animated]);
+  }, [score, animated, finalAngle]);
 
-  // Calculate rotation based on score (70-145 range mapped to left-to-right arc)
-  const minScore = 70;
-  const maxScore = 145;
-  const normalizedScore = Math.max(minScore, Math.min(maxScore, score));
-  // Map score to angle: 70 = 180° (left), 145 = 0° (right)
-  const mathAngle = 180 - ((normalizedScore - minScore) / (maxScore - minScore)) * 180;
-  // Convert to CSS rotation (needle points UP at 0deg, LEFT at -90deg, RIGHT at 90deg)
-  const needleRotation = 90 - mathAngle;
+  // Calculate needle tip position based on angle (in degrees)
+  // -90° = pointing left, 0° = pointing up, 90° = pointing right
+  const angleRad = (animatedAngle * Math.PI) / 180;
+  const tipX = centerX + needleLength * Math.sin(angleRad);
+  const tipY = centerY - needleLength * Math.cos(angleRad);
+  
+  // Calculate needle base corners (perpendicular to needle direction)
+  const baseWidth = 8;
+  const perpAngle = angleRad + Math.PI / 2;
+  const baseLeftX = centerX + (baseWidth / 2) * Math.cos(perpAngle);
+  const baseLeftY = centerY + (baseWidth / 2) * Math.sin(perpAngle);
+  const baseRightX = centerX - (baseWidth / 2) * Math.cos(perpAngle);
+  const baseRightY = centerY - (baseWidth / 2) * Math.sin(perpAngle);
 
   // Determine color based on score
   const getScoreColor = () => {
@@ -58,20 +84,16 @@ export function IQGauge({ score, animated = true }: IQGaugeProps) {
     return '#f59e0b'; // Amber
   };
 
+  // Calculate progress arc dashoffset
+  const arcLength = 251.33; // Approximate semicircle arc length
+  const progressRatio = (normalizedScore - minScore) / (maxScore - minScore);
+  const dashOffset = arcLength - progressRatio * arcLength;
+
   return (
     <div className="relative w-full max-w-xs mx-auto">
       {/* SVG Gauge */}
-      <svg viewBox="0 0 200 120" className="w-full">
-        {/* Background arc */}
-        <path
-          d="M 20 100 A 80 80 0 0 1 180 100"
-          fill="none"
-          stroke="#e2e8f0"
-          strokeWidth="12"
-          strokeLinecap="round"
-        />
-        
-        {/* Gradient definition */}
+      <svg viewBox="0 0 200 130" className="w-full">
+        {/* Gradient and filter definitions */}
         <defs>
           <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#ef4444" />
@@ -81,15 +103,20 @@ export function IQGauge({ score, animated = true }: IQGaugeProps) {
             <stop offset="100%" stopColor="#fbbf24" />
           </linearGradient>
           
-          {/* Glow filter */}
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="3" result="coloredBlur" />
-            <feMerge>
-              <feMergeNode in="coloredBlur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
+          {/* Drop shadow for needle */}
+          <filter id="needleShadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="0" dy="1" stdDeviation="2" floodOpacity="0.3" />
           </filter>
         </defs>
+        
+        {/* Background arc */}
+        <path
+          d="M 20 100 A 80 80 0 0 1 180 100"
+          fill="none"
+          stroke="#e2e8f0"
+          strokeWidth="12"
+          strokeLinecap="round"
+        />
         
         {/* Colored progress arc */}
         <motion.path
@@ -98,25 +125,29 @@ export function IQGauge({ score, animated = true }: IQGaugeProps) {
           stroke="url(#gaugeGradient)"
           strokeWidth="12"
           strokeLinecap="round"
-          strokeDasharray="251.33" // Circumference of semicircle
-          initial={{ strokeDashoffset: 251.33 }}
-          animate={{ 
-            strokeDashoffset: 251.33 - ((180 - mathAngle) / 180) * 251.33
-          }}
+          strokeDasharray={arcLength}
+          initial={{ strokeDashoffset: arcLength }}
+          animate={{ strokeDashoffset: animated ? dashOffset : dashOffset }}
           transition={{ duration: 2, ease: 'easeOut' }}
-          filter="url(#glow)"
         />
         
-        {/* Tick marks */}
+        {/* Tick marks and labels */}
         {[70, 85, 100, 115, 130, 145].map((tick) => {
-          // Map tick to angle: 70 = 180° (left), 145 = 0° (right)
-          const tickAngle = 180 - ((tick - minScore) / (maxScore - minScore)) * 180;
-          const angleRad = (tickAngle * Math.PI) / 180;
-          // Position tick marks along the arc (subtract Y for SVG coordinate system)
-          const x1 = 100 + 65 * Math.cos(angleRad);
-          const y1 = 100 - 65 * Math.sin(angleRad);
-          const x2 = 100 + 75 * Math.cos(angleRad);
-          const y2 = 100 - 75 * Math.sin(angleRad);
+          const tickRatio = (tick - minScore) / (maxScore - minScore);
+          const tickAngle = -90 + tickRatio * 180;
+          const tickAngleRad = (tickAngle * Math.PI) / 180;
+          
+          // Outer tick position
+          const outerRadius = 75;
+          const innerRadius = 65;
+          const labelRadius = 52;
+          
+          const x1 = centerX + innerRadius * Math.sin(tickAngleRad);
+          const y1 = centerY - innerRadius * Math.cos(tickAngleRad);
+          const x2 = centerX + outerRadius * Math.sin(tickAngleRad);
+          const y2 = centerY - outerRadius * Math.cos(tickAngleRad);
+          const labelX = centerX + labelRadius * Math.sin(tickAngleRad);
+          const labelY = centerY - labelRadius * Math.cos(tickAngleRad);
           
           return (
             <g key={tick}>
@@ -129,10 +160,11 @@ export function IQGauge({ score, animated = true }: IQGaugeProps) {
                 strokeWidth="2"
               />
               <text
-                x={100 + 52 * Math.cos(angleRad)}
-                y={100 - 52 * Math.sin(angleRad)}
+                x={labelX}
+                y={labelY}
                 fill="#64748b"
-                fontSize="8"
+                fontSize="9"
+                fontWeight="500"
                 textAnchor="middle"
                 dominantBaseline="middle"
               >
@@ -142,29 +174,29 @@ export function IQGauge({ score, animated = true }: IQGaugeProps) {
           );
         })}
         
-        {/* Needle */}
-        <motion.g
-          initial={{ rotate: -90 }}
-          animate={{ rotate: needleRotation }}
-          transition={{ duration: 2, ease: 'easeOut' }}
-          style={{ transformOrigin: '100px 100px' }}
-        >
-          {/* Needle triangle - base centered at (100,100), tip pointing up */}
-          <polygon
-            points="100,30 95,100 105,100"
-            fill={getScoreColor()}
-            filter="url(#glow)"
-          />
-        </motion.g>
+        {/* Needle - calculated mathematically, base is exactly at center */}
+        <polygon
+          points={`${tipX},${tipY} ${baseLeftX},${baseLeftY} ${baseRightX},${baseRightY}`}
+          fill={getScoreColor()}
+          filter="url(#needleShadow)"
+        />
         
-        {/* Center circle - drawn after needle so it covers the base */}
+        {/* Center circle - covers the needle base perfectly */}
         <circle
-          cx="100"
-          cy="100"
-          r="12"
-          fill="#f8fafc"
+          cx={centerX}
+          cy={centerY}
+          r="14"
+          fill="white"
           stroke={getScoreColor()}
           strokeWidth="3"
+        />
+        
+        {/* Small inner circle for depth */}
+        <circle
+          cx={centerX}
+          cy={centerY}
+          r="5"
+          fill={getScoreColor()}
         />
       </svg>
       
@@ -173,7 +205,7 @@ export function IQGauge({ score, animated = true }: IQGaugeProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.5 }}
-        className="text-center mt-4"
+        className="text-center mt-2"
       >
         <div className="text-6xl font-display font-bold" style={{ color: getScoreColor() }}>
           {displayScore}
@@ -183,4 +215,3 @@ export function IQGauge({ score, animated = true }: IQGaugeProps) {
     </div>
   );
 }
-
