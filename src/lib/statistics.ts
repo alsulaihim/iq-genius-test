@@ -26,51 +26,51 @@ export interface IQClassification {
 export const iqClassifications: IQClassification[] = [
   {
     range: '145+',
-    label: 'Genius or Near Genius',
-    description: 'Exceptional cognitive abilities. Top 0.1% of the population.',
+    label: 'Exceptionally Gifted',
+    description: 'Exceptional cognitive abilities placing you among the top 0.1% of the population. Rare intellectual capacity.',
     percentile: 'Top 0.1%',
     color: '#fbbf24', // gold
   },
   {
     range: '130-144',
     label: 'Gifted',
-    description: 'Very superior intelligence. Qualifies for Mensa membership.',
+    description: 'Very superior intelligence. You qualify for Mensa membership (top 2% of population).',
     percentile: 'Top 2%',
     color: '#a855f7', // purple
   },
   {
     range: '120-129',
     label: 'Superior',
-    description: 'Above average intelligence. Strong analytical capabilities.',
-    percentile: 'Top 9%',
+    description: 'Above average intelligence with strong analytical and problem-solving capabilities.',
+    percentile: 'Top 10%',
     color: '#22d3ee', // cyan
   },
   {
     range: '110-119',
     label: 'High Average',
-    description: 'Above average intelligence. Good problem-solving abilities.',
+    description: 'Above average cognitive abilities. Strong potential for academic and professional success.',
     percentile: 'Top 25%',
     color: '#0ea5e9', // primary blue
   },
   {
     range: '90-109',
     label: 'Average',
-    description: 'Normal intelligence range. Represents the majority of the population.',
+    description: 'Normal intelligence range representing the majority of the population. Solid cognitive foundation.',
     percentile: 'Middle 50%',
     color: '#10b981', // green
   },
   {
     range: '80-89',
     label: 'Low Average',
-    description: 'Below average but within normal range.',
+    description: 'Below average but within normal functional range. Many successful individuals score in this range.',
     percentile: 'Bottom 25%',
     color: '#f59e0b', // amber
   },
   {
     range: '70-79',
     label: 'Borderline',
-    description: 'Below average intelligence.',
-    percentile: 'Bottom 9%',
+    description: 'Below average intelligence. Consider consulting a professional for a comprehensive assessment.',
+    percentile: 'Bottom 10%',
     color: '#ef4444', // red
   },
 ];
@@ -262,6 +262,8 @@ function getCareerSuggestions(iqScore: number, gender: Gender): string[] {
 
 /**
  * World IQ statistics for comparison
+ * Based on Lynn & Vanhanen (2012) and updated research
+ * Note: Country IQ averages are estimates and subject to debate
  */
 export const worldStats = {
   averageIQ: 100,
@@ -269,7 +271,7 @@ export const worldStats = {
   mensaThreshold: 130, // Top 2%
   geniusThreshold: 145, // Top 0.1%
   countries: {
-    highest: { name: 'Japan', avgIQ: 106 },
+    japan: { name: 'Japan', avgIQ: 106 },
     usa: { name: 'United States', avgIQ: 98 },
     uk: { name: 'United Kingdom', avgIQ: 100 },
     global: { name: 'World Average', avgIQ: 100 },

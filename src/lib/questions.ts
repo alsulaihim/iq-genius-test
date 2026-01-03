@@ -92,10 +92,10 @@ export const questions: Question[] = [
     id: 7,
     category: 'logic',
     difficulty: 'medium',
-    question: 'If APPLE = 50 and BANANA = 42, what does CHERRY equal?',
-    options: ['54', '56', '58', '60'],
+    question: 'If CAT = 24 and DOG = 26, what does BIRD equal?',
+    options: ['31', '33', '35', '37'],
     correctAnswer: 1,
-    explanation: 'Each letter equals its position in alphabet (A=1, B=2...). CHERRY: C(3)+H(8)+E(5)+R(18)+R(18)+Y(25) = 77. Hmm, let\'s recalculate: Using A=1, P=16, L=12, E=5: APPLE = 1+16+16+12+5 = 50 ✓. CHERRY = 3+8+5+18+18+25 = 77... The pattern here is: vowels=10, consonants=8. APPLE has 2 vowels (20) + 3 consonants (24) = 44... Actually: count × value average. CHERRY = 56 using weighted letter values.',
+    explanation: 'Each letter equals its position in the alphabet (A=1, B=2, C=3...). CAT: C(3)+A(1)+T(20) = 24. DOG: D(4)+O(15)+G(7) = 26. BIRD: B(2)+I(9)+R(18)+D(4) = 33',
   },
   {
     id: 8,
