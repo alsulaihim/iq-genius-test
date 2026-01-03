@@ -319,8 +319,16 @@ export const famousPeople: FamousPerson[] = [
   { name: 'Reese Witherspoon', iq: 116, profession: 'Actress', achievement: 'Oscar winner' },
   
   // 90-109 Average
+  { name: 'Bruce Willis', iq: 101, profession: 'Actor', achievement: 'Action movie star' },
+  { name: 'Sylvester Stallone', iq: 93, profession: 'Actor', achievement: 'Rocky, Rambo creator' },
+  { name: 'Tom Cruise', iq: 94, profession: 'Actor', achievement: 'Top Gun, Mission Impossible' },
+  { name: 'John Wayne', iq: 95, profession: 'Actor', achievement: 'Western film icon' },
+  { name: 'Britney Spears', iq: 104, profession: 'Singer', achievement: 'Princess of Pop' },
+  { name: 'Will Smith', iq: 96, profession: 'Actor', achievement: 'Oscar winner' },
+  { name: 'Paris Hilton', iq: 97, profession: 'Socialite', achievement: 'Business entrepreneur' },
+  
+  // 80-89 Low Average
   { name: 'Muhammad Ali', iq: 78, profession: 'Boxer', achievement: 'Greatest of All Time' },
-  { name: 'Abraham Lincoln', iq: 128, profession: 'Politician', achievement: '16th US President' },
   { name: 'Andy Warhol', iq: 86, profession: 'Artist', achievement: 'Pop Art pioneer' },
 ];
 
