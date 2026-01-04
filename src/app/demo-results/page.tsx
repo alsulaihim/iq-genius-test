@@ -11,7 +11,8 @@ import {
   Target,
   Sparkles,
   Star,
-  Award
+  Award,
+  Heart
 } from 'lucide-react';
 import { IQGauge } from '@/components/IQGauge';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/Card';
@@ -20,7 +21,8 @@ import {
   calculatePercentile, 
   getPersonalizedInsights,
   worldStats,
-  getFamousPeopleByIQ
+  getFamousPeopleByIQ,
+  getOppositeGenderPerception
 } from '@/lib/statistics';
 import { Gender } from '@/lib/store';
 
@@ -37,6 +39,7 @@ export default function DemoResultsPage() {
   const percentile = calculatePercentile(score, gender);
   const insights = getPersonalizedInsights(score, gender);
   const famousPeople = getFamousPeopleByIQ(score);
+  const genderPerception = getOppositeGenderPerception(score, gender);
   
   // Mock test data
   const correctAnswers = Math.round((score - 70) / 75 * 20);
@@ -240,6 +243,46 @@ export default function DemoResultsPage() {
                   No famous people data available for this IQ range.
                 </p>
               )}
+            </CardContent>
+          </Card>
+        </section>
+
+        {/* Opposite Gender Perception - Research-Based Insights */}
+        <section className="mb-8">
+          <Card variant="bordered" padding="lg" className="bg-gradient-to-br from-purple-50 to-pink-50 border-purple-200">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Heart className="w-5 h-5 text-pink-500" />
+                {genderPerception.headline}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-slate-600 mb-4">
+                {gender === 'female' 
+                  ? "Here's what research says about how men typically perceive your intelligence level:"
+                  : "Here's what research says about how women typically perceive your intelligence level:"
+                }
+              </p>
+              
+              <div className="space-y-3 mb-4">
+                {genderPerception.findings.map((finding, index) => (
+                  <div
+                    key={index}
+                    className="flex items-start gap-3 p-3 bg-white/70 rounded-lg"
+                  >
+                    <div className="w-6 h-6 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0 text-white text-xs font-bold">
+                      {index + 1}
+                    </div>
+                    <p className="text-sm text-slate-700">{finding}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="p-3 bg-white/50 rounded-lg border border-purple-100">
+                <p className="text-xs text-slate-500 italic">
+                  📚 {genderPerception.researchNote}
+                </p>
+              </div>
             </CardContent>
           </Card>
         </section>
