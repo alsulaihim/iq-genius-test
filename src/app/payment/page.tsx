@@ -192,6 +192,7 @@ export default function PaymentPage() {
               'Cognitive strengths analysis',
               'Personalized career recommendations',
               'Brain improvement tips',
+              'Famous people with similar IQ',
             ].map((item, index) => (
               <li key={index} className="flex items-start gap-3">
                 <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
@@ -199,6 +200,38 @@ export default function PaymentPage() {
               </li>
             ))}
           </ul>
+        </motion.div>
+
+        {/* Opposite Gender Perception Teaser */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+          className="mb-8"
+        >
+          <Card variant="bordered" className="bg-gradient-to-br from-purple-50 to-pink-50 border-purple-200">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
+                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="font-display font-semibold text-slate-900 mb-1">
+                  🔓 Bonus: Gender Perception Insights
+                </h3>
+                <p className="text-sm text-slate-600">
+                  {currentSession?.gender === 'female' 
+                    ? "Curious what most men think about a score like yours?"
+                    : "Curious what most women think about a score like yours?"
+                  }
+                </p>
+                <p className="text-xs text-purple-600 mt-2 font-medium">
+                  Research-backed insights included with your results!
+                </p>
+              </div>
+            </div>
+          </Card>
         </motion.div>
 
         {/* Payment section */}

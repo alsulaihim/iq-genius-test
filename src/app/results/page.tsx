@@ -15,9 +15,9 @@ import {
   RotateCcw
 } from 'lucide-react';
 import { useTestStore } from '@/lib/store';
-import { getPersonalizedInsights, worldStats, getFamousPeopleByIQ } from '@/lib/statistics';
+import { getPersonalizedInsights, worldStats, getFamousPeopleByIQ, getOppositeGenderPerception } from '@/lib/statistics';
 import { IQGauge } from '@/components/IQGauge';
-import { Star, Award } from 'lucide-react';
+import { Star, Award, Heart } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/Card';
 import { Button } from '@/components/Button';
 
@@ -51,6 +51,7 @@ export default function ResultsPage() {
   const TOTAL_QUESTIONS = 20; // Fixed number of questions in the test
   const insights = getPersonalizedInsights(currentSession.iqScore, currentSession.gender);
   const famousPeople = getFamousPeopleByIQ(currentSession.iqScore);
+  const genderPerception = getOppositeGenderPerception(currentSession.iqScore, currentSession.gender);
   const correctAnswers = currentSession.answers.filter(a => a.isCorrect).length;
   const totalQuestions = TOTAL_QUESTIONS;
   const accuracy = Math.round((correctAnswers / totalQuestions) * 100);
@@ -234,6 +235,54 @@ export default function ResultsPage() {
                   No famous people data available for this IQ range.
                 </p>
               )}
+            </CardContent>
+          </Card>
+        </motion.section>
+
+        {/* Opposite Gender Perception - Research-Based Insights */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.37 }}
+          className="mb-8"
+        >
+          <Card variant="bordered" padding="lg" className="bg-gradient-to-br from-purple-50 to-pink-50 border-purple-200">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Heart className="w-5 h-5 text-pink-500" />
+                {genderPerception.headline}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-slate-600 mb-4">
+                {currentSession.gender === 'female' 
+                  ? "Here's what research says about how men typically perceive your intelligence level:"
+                  : "Here's what research says about how women typically perceive your intelligence level:"
+                }
+              </p>
+              
+              <div className="space-y-3 mb-4">
+                {genderPerception.findings.map((finding, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 + index * 0.1 }}
+                    className="flex items-start gap-3 p-3 bg-white/70 rounded-lg"
+                  >
+                    <div className="w-6 h-6 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0 text-white text-xs font-bold">
+                      {index + 1}
+                    </div>
+                    <p className="text-sm text-slate-700">{finding}</p>
+                  </motion.div>
+                ))}
+              </div>
+
+              <div className="p-3 bg-white/50 rounded-lg border border-purple-100">
+                <p className="text-xs text-slate-500 italic">
+                  📚 {genderPerception.researchNote}
+                </p>
+              </div>
             </CardContent>
           </Card>
         </motion.section>

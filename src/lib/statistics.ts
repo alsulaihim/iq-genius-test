@@ -369,3 +369,102 @@ export function getFamousPeopleByClassification(iqScore: number): FamousPerson[]
   }
 }
 
+/**
+ * Gender Perception Research Data
+ * 
+ * Based on peer-reviewed research:
+ * - Furnham, A. (2001). Self-estimates of intelligence. Personality and Individual Differences.
+ * - Prokosch, M.D., et al. (2009). Intelligence and mate choice. Evolution and Human Behavior.
+ * - Karbowski, A., et al. (2016). Perceived female intelligence. Personality and Individual Differences.
+ * - Li, N.P., et al. (2002). The necessities and luxuries of mate preferences. Journal of Personality and Social Psychology.
+ */
+export interface GenderPerceptionInsight {
+  headline: string;
+  findings: string[];
+  researchNote: string;
+}
+
+/**
+ * Get what the opposite gender typically thinks about this IQ score
+ * Based on published psychological research
+ */
+export function getOppositeGenderPerception(iqScore: number, userGender: Gender): GenderPerceptionInsight {
+  const isHighIQ = iqScore >= 120;
+  const isAboveAverage = iqScore >= 110;
+  const isAverage = iqScore >= 90 && iqScore < 110;
+  
+  if (userGender === 'female') {
+    // What men think about women with this IQ
+    if (isHighIQ) {
+      return {
+        headline: 'How Men Perceive High-IQ Women',
+        findings: [
+          'Research shows men rate intelligence as the 4th most important trait in long-term partners (Li et al., 2002)',
+          'Studies indicate men initially express preference for intelligent women, though this can vary based on context (Karbowski et al., 2016)',
+          'High-achieving women are increasingly valued in professional settings, with intelligence seen as an asset',
+          'Men with higher IQs themselves tend to strongly prefer intelligent partners (Prokosch et al., 2009)',
+        ],
+        researchNote: 'Based on evolutionary psychology research, intelligence signals genetic fitness and good parenting potential, making it attractive across genders.',
+      };
+    } else if (isAboveAverage) {
+      return {
+        headline: 'How Men Perceive Above-Average Intelligence in Women',
+        findings: [
+          'Above-average intelligence is consistently rated as attractive by men seeking long-term relationships',
+          'Men value intelligence highly for raising children and building stable partnerships',
+          'Research shows this IQ range is perceived as ideal for collaboration and communication',
+          'Professional success associated with this range is viewed positively by most men',
+        ],
+        researchNote: 'Studies by Li et al. (2002) found intelligence ranks among the top qualities men seek in serious partners.',
+      };
+    } else {
+      return {
+        headline: 'How Men Perceive Average Intelligence in Women',
+        findings: [
+          'Average IQ (90-109) represents the majority of the population and is considered normal',
+          'Personality traits, emotional intelligence, and compatibility often matter more than IQ scores',
+          'Many successful relationships exist across all intelligence levels',
+          'Practical intelligence and life skills are equally valued in partnerships',
+        ],
+        researchNote: 'Research shows relationship satisfaction depends more on emotional compatibility than IQ matching.',
+      };
+    }
+  } else {
+    // What women think about men with this IQ
+    if (isHighIQ) {
+      return {
+        headline: 'How Women Perceive High-IQ Men',
+        findings: [
+          'Intelligence consistently ranks as one of the most attractive traits to women (Prokosch et al., 2009)',
+          'Women rate intelligence as the 2nd most important trait in long-term partners, after kindness (Li et al., 2002)',
+          'High IQ is associated with better resource acquisition, which evolutionary psychology links to mate attractiveness',
+          'Studies show women prefer men who are at least as intelligent as themselves, often more so',
+        ],
+        researchNote: 'Cross-cultural research confirms intelligence is universally valued by women in mate selection.',
+      };
+    } else if (isAboveAverage) {
+      return {
+        headline: 'How Women Perceive Above-Average Intelligence in Men',
+        findings: [
+          'Above-average intelligence is highly valued by women across all studies on mate preferences',
+          'This IQ range correlates with career success, which women find attractive for long-term stability',
+          'Research shows women associate this range with good conversation and intellectual compatibility',
+          'Men in this range often demonstrate strong problem-solving abilities valued in partnerships',
+        ],
+        researchNote: 'Buss (1989) found intelligence among universal preferences women hold for partners across 37 cultures.',
+      };
+    } else {
+      return {
+        headline: 'How Women Perceive Average Intelligence in Men',
+        findings: [
+          'Average IQ represents solid cognitive ability sufficient for most life challenges',
+          'Women value emotional intelligence, ambition, and character alongside cognitive ability',
+          'Practical skills, work ethic, and reliability often matter more than IQ scores',
+          'Many highly successful relationships exist at all intelligence levels',
+        ],
+        researchNote: 'Research shows overall compatibility and shared values predict relationship success better than IQ alone.',
+      };
+    }
+  }
+}
+

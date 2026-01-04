@@ -117,8 +117,8 @@ export default function HomePage() {
             transition={{ delay: 0.1 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold mb-6 leading-tight text-slate-900"
           >
-            Discover Your True{' '}
-            <span className="text-gradient">Intelligence</span>
+            Intelligence That Survives{' '}
+            <span className="text-gradient">the AI Era</span>
           </motion.h1>
 
           {/* Subheadline */}
@@ -128,8 +128,8 @@ export default function HomePage() {
             transition={{ delay: 0.2 }}
             className="text-lg sm:text-xl text-slate-600 mb-8 max-w-2xl mx-auto"
           >
-            Take our comprehensive IQ test designed by cognitive scientists. 
-            Get personalized insights and see how you compare globally.
+            This test distinguishes thinkers who use tools from thinkers 
+            who get replaced by them.
           </motion.p>
 
           {/* Brain illustration */}
