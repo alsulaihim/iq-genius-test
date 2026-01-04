@@ -214,7 +214,7 @@ export default function HomePage() {
             </Button>
             
             <p className="text-xs text-slate-500 mt-4">
-              Takes ~10 minutes • Results: $9.99
+              Takes ~10 minutes • Instant results & performance report
             </p>
           </motion.div>
         </div>
